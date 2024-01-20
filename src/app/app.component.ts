@@ -9,8 +9,10 @@ interface TaskList {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  // standalone: true
 })
+
 export class AppComponent {
   tasks: TaskList = {
     todo: ['Task 1', 'Task 2', 'Task 3'],
@@ -36,13 +38,11 @@ export class AppComponent {
   }
 
   private removeTask(task: string): void {
-    for (const key in this.tasks) {
-      if (this.tasks.hasOwnProperty(key)) {
-        const index = this.tasks[key as keyof TaskList].indexOf(task);
-        if (index !== -1) {
-          this.tasks[key as keyof TaskList].splice(index, 1);
-        }
+    Object.keys(this.tasks).forEach(key => {
+      const index = this.tasks[key as keyof TaskList].indexOf(task);
+      if (index !== -1) {
+        this.tasks[key as keyof TaskList].splice(index, 1);
       }
-    }
+    });
   }
 }
