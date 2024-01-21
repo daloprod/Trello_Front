@@ -1,51 +1,32 @@
-<div class="container mt-4">
-  <div class="row">
-    <div class="col">
-      <h1>Trello Clone</h1>
+<!-- app.component.html -->
+
+<div *ngFor="let projet of projets">
+  <h2>{{ projet.Nom }}</h2>
+  <p>{{ projet.Description }}</p>
+
+  <div *ngFor="let liste of projet.Listes">
+    <h3>{{ liste.Nom }}</h3>
+
+    <div *ngFor="let tache of liste.Cartes">
+      <h4>{{ tache.Titre }}</h4>
+      <p>{{ tache.Description }}</p>
+
+      <div *ngFor="let commentaire of tache.Commentaires">
+        <p>{{ commentaire.Contenu }}</p>
+        <small>{{ commentaire.Utilisateur }} - {{ commentaire.DateCreation | date }}</small>
+        <button (click)="modifierCommentaire(commentaire)">Modifier Commentaire</button>
+        <button (click)="supprimerCommentaire(tache, commentaire)">Supprimer Commentaire</button>
+      </div>
+
+      <button (click)="ajouterCommentaire(tache)">Ajouter Commentaire</button>
+      <button (click)="modifierTache(tache)">Modifier Tâche</button>
+      <button (click)="supprimerTache(liste, tache)">Supprimer Tâche</button>
     </div>
+
+    <button (click)="ajouterTache(liste)">Ajouter Tâche</button>
   </div>
-  <div class="row">
-    <div class="col-4">
-      <div class="card">
-        <div class="card-header">
-          To Do
-        </div>
-        <div class="card-body">
-          <ul class="list-group" droppable (drop)="onDrop($event, 'todo')" (dragover)="onDragOver($event)">
-            <li *ngFor="let task of tasks.todo" draggable="true" (dragstart)="onDragStart($event, task)">
-              {{ task }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="card">
-        <div class="card-header">
-          In Progress
-        </div>
-        <div class="card-body">
-          <ul class="list-group" droppable (drop)="onDrop($event, 'inProgress')" (dragover)="onDragOver($event)">
-            <li *ngFor="let task of tasks.inProgress" draggable="true" (dragstart)="onDragStart($event, task)">
-              {{ task }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="card">
-        <div class="card-header">
-          Done
-        </div>
-        <div class="card-body">
-          <ul class="list-group" droppable (drop)="onDrop($event, 'done')" (dragover)="onDragOver($event)">
-            <li *ngFor="let task of tasks.done" draggable="true" (dragstart)="onDragStart($event, task)">
-              {{ task }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+
+  <button (click)="ajouterProjet()">Ajouter Projet</button>
+  <button (click)="modifierProjet(projet)">Modifier Projet</button>
+  <button (click)="supprimerProjet(projet)">Supprimer Projet</button>
 </div>
