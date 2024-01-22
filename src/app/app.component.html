@@ -3,27 +3,34 @@
 <div *ngFor="let projet of projets">
   <h2>{{ projet.Nom }}</h2>
   <p>{{ projet.Description }}</p>
+  <p>Date de création : {{ projet.DateCreation | date }}</p>
 
   <div *ngFor="let liste of projet.Listes">
     <h3>{{ liste.Nom }}</h3>
+    <p>Liste d'Id : {{ liste.Id }}</p>
+    <p>Projet d'Id : {{ liste.IdProjet }}</p>
 
     <div *ngFor="let tache of liste.Cartes">
       <h4>{{ tache.Titre }}</h4>
       <p>{{ tache.Description }}</p>
+      <p>Date de création : {{ tache.DateCreation | date }}</p>
 
       <div *ngFor="let commentaire of tache.Commentaires">
         <p>{{ commentaire.Contenu }}</p>
         <small>{{ commentaire.Utilisateur }} - {{ commentaire.DateCreation | date }}</small>
+        <button (click)="ajouterCommentaire(tache)">Ajouter Commentaire</button>
         <button (click)="modifierCommentaire(commentaire)">Modifier Commentaire</button>
         <button (click)="supprimerCommentaire(tache, commentaire)">Supprimer Commentaire</button>
       </div>
 
-      <button (click)="ajouterCommentaire(tache)">Ajouter Commentaire</button>
-      <button (click)="modifierTache(tache)">Modifier Tâche</button>
-      <button (click)="supprimerTache(liste, tache)">Supprimer Tâche</button>
+      <button (click)="ajouterTache(liste)">Ajouter Carte</button>
+      <button (click)="modifierTache(tache)">Modifier Carte</button>
+      <button (click)="supprimerTache(liste, tache)">Supprimer Carte</button>
     </div>
 
-    <button (click)="ajouterTache(liste)">Ajouter Tâche</button>
+    <button (click)="ajouterListe()">Ajouter liste</button>
+    <button (click)="modifierListe(liste)">Modifier liste</button>
+    <button (click)="supprimerListe(liste)">Supprimer liste</button>
   </div>
 
   <button (click)="ajouterProjet()">Ajouter Projet</button>
