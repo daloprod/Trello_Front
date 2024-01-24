@@ -36,8 +36,12 @@ export class AppComponent implements OnInit {
 
   chargerProjets(): void {
     this.projetService.getProjets().subscribe(
-      (projets) => (this.projets = projets),
-      (erreur) => console.error(erreur)
+      (projets: Projet[]) => {
+        this.projets = projets;
+      },
+      (erreur) => {
+        console.error('Erreur lors du chargement des projets :', erreur);
+      }
     );
   }
 
